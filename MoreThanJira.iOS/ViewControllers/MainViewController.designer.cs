@@ -1,21 +1,34 @@
-﻿// WARNING
+// WARNING
 //
-// This file has been generated automatically by Xamarin Studio from the outlets and
-// actions declared in your storyboard file.
-// Manual changes to this file will not be maintained.
+// This file has been generated automatically by Visual Studio to store outlets and
+// actions made in the UI designer. If it is removed, they will be lost.
+// Manual changes to this file may not be handled correctly.
 //
 using Foundation;
-using System;
 using System.CodeDom.Compiler;
-using UIKit;
 
 namespace MoreThanJira.iOS.ViewControllers
 {
-    [Register("MainViewController")]
-    partial class MainViewController
-    {
-        void ReleaseDesignerOutlets()
-        {
-        }
-    }
+	[Register ("MainViewController")]
+	partial class MainViewController
+	{
+		[Outlet]
+		UIKit.UIButton _addButton { get; set; }
+
+		[Outlet]
+		UIKit.UITableView _taskTableView { get; set; }
+		
+		void ReleaseDesignerOutlets ()
+		{
+			if (_taskTableView != null) {
+				_taskTableView.Dispose ();
+				_taskTableView = null;
+			}
+
+			if (_addButton != null) {
+				_addButton.Dispose ();
+				_addButton = null;
+			}
+		}
+	}
 }

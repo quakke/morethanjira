@@ -1,25 +1,58 @@
 ﻿using System;
-
+using MoreThanJira.Api.Models;
 using UIKit;
 
 namespace MoreThanJira.iOS.ViewControllers
 {
     public partial class DetailsViewController : UIViewController
     {
-        public DetailsViewController() : base("DetailsViewController", null)
+        private TaskEntity _task;
+        private readonly bool isAddNewTask;
+
+        public DetailsViewController(TaskEntity task) : base("DetailsViewController", null)
         {
+            _task = task;
+
+            isAddNewTask = (task == null);
         }
 
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            // Perform any additional setup after loading the view, typically from a nib.
-        }
 
-        public override void DidReceiveMemoryWarning()
-        {
-            base.DidReceiveMemoryWarning();
-            // Release any cached data, images, etc that aren't in use.
+            if (isAddNewTask)
+            {
+                _creationDateLabel.Text = DateTime.Now.ToShortDateString();
+                // TODO: сделать статус
+                // пикер = дефолтное значение
+                _titleTextField.Text = string.Empty;
+                _descriptionTextView.Text = string.Empty;
+            }
+            else
+            {
+                _creationDateLabel.Text = _task.CreationDate.ToShortDateString();
+                _titleTextField.Text = _task.Title;
+
+                // TODO: сделать статус
+                //_statusPickerView = _task.Status;
+
+                _descriptionTextView.Text = _task.Description;
+            }
+
+
+            _saveButton.TouchUpInside += (args, sender) =>
+            {
+                if (isAddNewTask)
+                {
+                    // TODO: вынести метод в бэкэнд
+                    // добавить новую запись в БД
+                }
+                else
+                {
+                    // TODO: вынести метод в бэкэнд
+                    // редактировать существующую строчку
+                }
+            };
         }
     }
 }

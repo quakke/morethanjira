@@ -19,7 +19,11 @@ namespace MoreThanJira.iOS
             _window.MakeKeyAndVisible();
 
             var mainVC = new MainViewController();
-            _window.RootViewController = mainVC;
+
+            _navigationController = new UINavigationController(mainVC);
+            _navigationController.NavigationBarHidden = true;
+            
+            _window.RootViewController = _navigationController;
 
             return true;
         }

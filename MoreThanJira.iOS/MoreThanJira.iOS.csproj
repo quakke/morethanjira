@@ -147,5 +147,15 @@
           <DependentUpon>TaskTableViewCell.cs</DependentUpon>
         </Compile>
     </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\MoreThanJira.Api\MoreThanJira.Api.csproj">
+        <Project>{ED634223-8DFA-4697-AEFE-C0A5522E83B6}</Project>
+        <Name>MoreThanJira.Api</Name>
+      </ProjectReference>
+      <ProjectReference Include="..\MoreThanJira.Core\MoreThanJira.Core.csproj">
+        <Project>{8E6BF6D9-B5AC-44AF-BF68-D5880CF9050B}</Project>
+        <Name>MoreThanJira.Core</Name>
+      </ProjectReference>
+    </ItemGroup>
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

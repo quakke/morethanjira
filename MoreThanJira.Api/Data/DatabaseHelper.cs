@@ -1,31 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using MoreThanJira.Model;
+using MoreThanJira.Api.Models;
+using MoreThanJira.Api.Utils;
 using SQLite;
 
-namespace MoreThanJira.Data
+namespace MoreThanJira.Api.Data
 {
     public class TaskDatabase
     {
-        readonly SQLiteAsyncConnection database;
+        private static SQLiteAsyncConnection _database;
 
-        public TaskDatabase(string dbPath)
+        public static readonly AsyncLazy<TaskDatabase> Instance = new AsyncLazy<TaskDatabase>(async () =>
         {
-            database = new SQLiteAsyncConnection(dbPath);
-            database.CreateTableAsync<TaskEntity>().Wait();
+            var instance = new TaskDatabase();
+            var result = await _database.CreateTableAsync<TaskEntity>();
+            return instance;
+        });
+
+        public TaskDatabase()
+        {
+            _database = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
         }
 
         public Task<List<TaskEntity>> GetTasksAsync()
         {
             //Get all tasks.
-            return database.Table<TaskEntity>().ToListAsync();
+            return _database.Table<TaskEntity>().ToListAsync();
         }
 
         public Task<TaskEntity> GetTaskByIdAsync(int id)
         {
             // Get a specific task by id.
-            return database.Table<TaskEntity>()
+            return _database.Table<TaskEntity>()
                             .Where(i => i.Id == id)
                             .FirstOrDefaultAsync();
         }
@@ -35,19 +42,19 @@ namespace MoreThanJira.Data
             if (task.Id != 0)
             {
                 // Update an existing task.
-                return database.UpdateAsync(task);
+                return _database.UpdateAsync(task);
             }
             else
             {
                 // Save a new task.
-                return database.InsertAsync(task);
+                return _database.InsertAsync(task);
             }
         }
 
         public Task<int> DeleteTaskAsync(TaskEntity task)
         {
             // Delete a task.
-            return database.DeleteAsync(task);
+            return _database.DeleteAsync(task);
         }
     }
 }

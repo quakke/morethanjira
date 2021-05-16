@@ -11,6 +11,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController">
             <connections>
+                <outlet property="_addButton" destination="IUl-im-qki" id="05T-Q6-wdb"/>
+                <outlet property="_taskTableView" destination="9YU-D6-6Ol" id="FYj-1E-3IR"/>
                 <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
             </connections>
         </placeholder>

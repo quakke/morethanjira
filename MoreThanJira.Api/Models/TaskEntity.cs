@@ -1,7 +1,7 @@
 ﻿using System;
 using SQLite;
 
-namespace MoreThanJira.Model
+namespace MoreThanJira.Api.Models
 {
     public class TaskEntity
     {
