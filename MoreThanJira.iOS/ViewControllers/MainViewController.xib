@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController">
+            <connections>
+                <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="2">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ya6-Wu-zYM">
+                    <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <items>
+                        <navigationItem title="Список задач" id="NsT-wZ-ugw"/>
+                    </items>
+                </navigationBar>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9YU-D6-6Ol">
+                    <rect key="frame" x="0.0" y="88" width="414" height="700"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IUl-im-qki">
+                    <rect key="frame" x="16" y="804" width="382" height="42"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="42" id="YiH-fv-fzU"/>
+                    </constraints>
+                    <state key="normal" title="Добавить еще задачку"/>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="Sb1-sd-nai"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="IUl-im-qki" firstAttribute="leading" secondItem="Sb1-sd-nai" secondAttribute="leading" constant="16" id="3rI-Ny-e77"/>
+                <constraint firstItem="Sb1-sd-nai" firstAttribute="top" secondItem="ya6-Wu-zYM" secondAttribute="top" id="AyM-Bo-srQ"/>
+                <constraint firstItem="9YU-D6-6Ol" firstAttribute="trailing" secondItem="Sb1-sd-nai" secondAttribute="trailing" id="K0X-hn-RLP"/>
+                <constraint firstItem="9YU-D6-6Ol" firstAttribute="bottom" secondItem="IUl-im-qki" secondAttribute="top" constant="-16" id="PkG-uc-crq"/>
+                <constraint firstItem="IUl-im-qki" firstAttribute="bottom" secondItem="Sb1-sd-nai" secondAttribute="bottom" constant="-16" id="Rqq-Ni-8Zx"/>
+                <constraint firstItem="Sb1-sd-nai" firstAttribute="leading" secondItem="ya6-Wu-zYM" secondAttribute="leading" id="aWI-eR-J1J"/>
+                <constraint firstItem="9YU-D6-6Ol" firstAttribute="top" secondItem="ya6-Wu-zYM" secondAttribute="bottom" id="bcN-Vl-I1B"/>
+                <constraint firstItem="Sb1-sd-nai" firstAttribute="trailing" secondItem="ya6-Wu-zYM" secondAttribute="trailing" id="sBT-xG-eaO"/>
+                <constraint firstItem="9YU-D6-6Ol" firstAttribute="leading" secondItem="Sb1-sd-nai" secondAttribute="leading" id="xSe-ra-Mer"/>
+                <constraint firstItem="IUl-im-qki" firstAttribute="trailing" secondItem="Sb1-sd-nai" secondAttribute="trailing" constant="-16" id="zms-oI-0zi"/>
+            </constraints>
+            <point key="canvasLocation" x="86" y="0.0"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
