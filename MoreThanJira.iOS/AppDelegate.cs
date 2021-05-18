@@ -1,5 +1,7 @@
 ﻿using Foundation;
-using MoreThanJira.iOS.ViewControllers;
+using MvvmCross.Core.ViewModels;
+using MvvmCross.iOS.Platform;
+using MvvmCross.Platform;
 using UIKit;
 
 namespace MoreThanJira.iOS
@@ -7,24 +9,23 @@ namespace MoreThanJira.iOS
     // The UIApplicationDelegate for the application. This class is responsible for launching the
     // User Interface of the application, as well as listening (and optionally responding) to application events from iOS.
     [Register("AppDelegate")]
-    public class AppDelegate : UIResponder, IUIApplicationDelegate
+    public class AppDelegate : MvxApplicationDelegate
     {
-        private new UIWindow _window;
-        private UINavigationController _navigationController;
+        public override UIWindow Window
+        {
+            get;
+            set;
+        }
 
         [Export("application:didFinishLaunchingWithOptions:")]
-        public bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
+        public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
         {
-            _window = new UIWindow(UIScreen.MainScreen.Bounds);
-            _window.MakeKeyAndVisible();
-
-            var mainVC = new MainViewController();
-
-            _navigationController = new UINavigationController(mainVC);
-            _navigationController.NavigationBarHidden = true;
-            
-            _window.RootViewController = _navigationController;
-
+            Window = new UIWindow(UIScreen.MainScreen.Bounds);
+            var setup = new Setup(this, Window);
+            setup.Initialize();
+            var startup = Mvx.Resolve<IMvxAppStart>();
+            startup.Start();
+            Window.MakeKeyAndVisible();
             return true;
         }
     }

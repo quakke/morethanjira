@@ -1,27 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using MoreThanJira.Api.Models;
 using MoreThanJira.Api.Utils;
 using SQLite;
 
-namespace MoreThanJira.Api.Data
+namespace MoreThanJira.Api.Repositories
 {
-    public class TaskDatabase
+    public class TaskRepository : ITaskRepository
     {
         private static SQLiteAsyncConnection _database;
 
-        public static readonly AsyncLazy<TaskDatabase> Instance = new AsyncLazy<TaskDatabase>(async () =>
-        {
-            var instance = new TaskDatabase();
-            var result = await _database.CreateTableAsync<TaskEntity>();
-            return instance;
-        });
-
-        public TaskDatabase()
+        public TaskRepository()
         {
             _database = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
         }
+
 
         public Task<List<TaskEntity>> GetTasksAsync()
         {

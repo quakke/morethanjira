@@ -1,9 +1,10 @@
 ﻿using System;
 using MoreThanJira.Api.Models;
+using MvvmCross.Core.ViewModels;
 
 namespace MoreThanJira.Core.ViewModels.Items
 {
-    public class TaskViewModel
+    public class ItemViewModel : MvxViewModel
     {
         public TaskEntity TaskEntity { get; }
 
@@ -13,12 +14,13 @@ namespace MoreThanJira.Core.ViewModels.Items
 
         public string Description => TaskEntity?.Description ?? string.Empty;
 
-        public DateTime CreationDateTime => TaskEntity?.CreationDate ?? new DateTime();
+        // TODO сделать дату
+        //public DateTime CreationDateTime => TaskEntity?.CreationDate ?? DateTime.Now;
 
         // TODO: сделаьт статус
         //public status 
 
-        public TaskViewModel(TaskEntity taskModel)
+        public ItemViewModel(TaskEntity taskModel)
         {
             TaskEntity = taskModel;
         }

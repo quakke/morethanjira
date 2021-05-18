@@ -1,16 +1,15 @@
-﻿using System;
+﻿using MoreThanJira.Api.Repositories;
+using MvvmCross.Core.ViewModels;
+using MvvmCross.Platform;
+
 namespace MoreThanJira.Api
 {
-    public class App
+    public class App : MvxApplication
     {
-        public static void Initialize()
+        public override void Initialize()
         {
-            InitDBConnection();
+            Mvx.ConstructAndRegisterSingleton<ITaskRepository, TaskRepository>();
         }
 
-        private static void InitDBConnection()
-        {
-            
-        }
     }
 }

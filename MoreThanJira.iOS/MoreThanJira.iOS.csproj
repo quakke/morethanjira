@@ -68,6 +68,7 @@
         <Reference Include="System.Numerics.Vectors" />
     </ItemGroup>
     <ItemGroup>
+      <PackageReference Include="MvvmCross" Version="5.7.0" />
       <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
       <PackageReference Include="sqlite-net-standard">
         <Version>1.5.1</Version>
@@ -146,6 +147,7 @@
         <Compile Include="Views\TaskTableViewCell.designer.cs">
           <DependentUpon>TaskTableViewCell.cs</DependentUpon>
         </Compile>
+        <Compile Include="Setup.cs" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\MoreThanJira.Api\MoreThanJira.Api.csproj">

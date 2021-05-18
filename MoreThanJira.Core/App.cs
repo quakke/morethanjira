@@ -1,11 +1,16 @@
 ﻿using System;
+using MoreThanJira.Core.ViewModels;
+using MvvmCross.Core.ViewModels;
+
 namespace MoreThanJira.Core
 {
-    public class App
+    public class App : MvxApplication
     {
-        public static void Initialize()
+        public override void Initialize()
         {
-            
+            new Api.App().Initialize();
+
+            RegisterNavigationServiceAppStart<MainViewModel>();
         }
     }
 }

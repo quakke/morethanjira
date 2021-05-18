@@ -1,58 +1,37 @@
 ﻿using System;
 using MoreThanJira.Api.Models;
-using UIKit;
+using MoreThanJira.Core.ViewModels;
+using MvvmCross.Binding.BindingContext;
+using MvvmCross.iOS.Views;
 
 namespace MoreThanJira.iOS.ViewControllers
 {
-    public partial class DetailsViewController : UIViewController
+    public partial class DetailsViewController : MvxViewController<DetailsViewModel>
     {
-        private TaskEntity _task;
-        private readonly bool isAddNewTask;
-
-        public DetailsViewController(TaskEntity task) : base("DetailsViewController", null)
+        public DetailsViewController() : base("DetailsViewController", null)
         {
-            _task = task;
-
-            isAddNewTask = (task == null);
+            
         }
 
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
 
-            if (isAddNewTask)
-            {
-                _creationDateLabel.Text = DateTime.Now.ToShortDateString();
-                // TODO: сделать статус
-                // пикер = дефолтное значение
-                _titleTextField.Text = string.Empty;
-                _descriptionTextView.Text = string.Empty;
-            }
-            else
-            {
-                _creationDateLabel.Text = _task.CreationDate.ToShortDateString();
-                _titleTextField.Text = _task.Title;
+            Binding();
+        }
 
-                // TODO: сделать статус
-                //_statusPickerView = _task.Status;
+        private void Binding()
+        {
+            var set = this.CreateBindingSet<DetailsViewController, DetailsViewModel>();
 
-                _descriptionTextView.Text = _task.Description;
-            }
+            set.Bind(_titleTextField).For("Text").To(vm => vm.Title);
+            set.Bind(_descriptionTextView).For("Text").To(vm => vm.Description);
+            //set.Bind(_creationDateLabel).For("Text").To(vm => vm.TaskItem.CreationDateTime.ToString());
+            //TODO: сделать статус
 
+            set.Bind(_saveButton).To(vm => vm.SaveTaskCommand);
 
-            _saveButton.TouchUpInside += (args, sender) =>
-            {
-                if (isAddNewTask)
-                {
-                    // TODO: вынести метод в бэкэнд
-                    // добавить новую запись в БД
-                }
-                else
-                {
-                    // TODO: вынести метод в бэкэнд
-                    // редактировать существующую строчку
-                }
-            };
+            set.Apply();
         }
     }
 }

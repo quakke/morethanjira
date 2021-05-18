@@ -21,14 +21,8 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ya6-Wu-zYM">
-                    <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                    <items>
-                        <navigationItem title="Список задач" id="NsT-wZ-ugw"/>
-                    </items>
-                </navigationBar>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9YU-D6-6Ol">
-                    <rect key="frame" x="0.0" y="88" width="414" height="700"/>
+                    <rect key="frame" x="0.0" y="56" width="414" height="732"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IUl-im-qki">
@@ -44,13 +38,10 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="IUl-im-qki" firstAttribute="leading" secondItem="Sb1-sd-nai" secondAttribute="leading" constant="16" id="3rI-Ny-e77"/>
-                <constraint firstItem="Sb1-sd-nai" firstAttribute="top" secondItem="ya6-Wu-zYM" secondAttribute="top" id="AyM-Bo-srQ"/>
+                <constraint firstItem="9YU-D6-6Ol" firstAttribute="top" secondItem="Sb1-sd-nai" secondAttribute="top" constant="12" id="Dzo-y2-m0Q"/>
                 <constraint firstItem="9YU-D6-6Ol" firstAttribute="trailing" secondItem="Sb1-sd-nai" secondAttribute="trailing" id="K0X-hn-RLP"/>
                 <constraint firstItem="9YU-D6-6Ol" firstAttribute="bottom" secondItem="IUl-im-qki" secondAttribute="top" constant="-16" id="PkG-uc-crq"/>
                 <constraint firstItem="IUl-im-qki" firstAttribute="bottom" secondItem="Sb1-sd-nai" secondAttribute="bottom" constant="-16" id="Rqq-Ni-8Zx"/>
-                <constraint firstItem="Sb1-sd-nai" firstAttribute="leading" secondItem="ya6-Wu-zYM" secondAttribute="leading" id="aWI-eR-J1J"/>
-                <constraint firstItem="9YU-D6-6Ol" firstAttribute="top" secondItem="ya6-Wu-zYM" secondAttribute="bottom" id="bcN-Vl-I1B"/>
-                <constraint firstItem="Sb1-sd-nai" firstAttribute="trailing" secondItem="ya6-Wu-zYM" secondAttribute="trailing" id="sBT-xG-eaO"/>
                 <constraint firstItem="9YU-D6-6Ol" firstAttribute="leading" secondItem="Sb1-sd-nai" secondAttribute="leading" id="xSe-ra-Mer"/>
                 <constraint firstItem="IUl-im-qki" firstAttribute="trailing" secondItem="Sb1-sd-nai" secondAttribute="trailing" constant="-16" id="zms-oI-0zi"/>
             </constraints>
