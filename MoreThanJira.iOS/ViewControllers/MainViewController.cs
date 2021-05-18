@@ -26,6 +26,9 @@ namespace MoreThanJira.iOS.ViewControllers
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
+
+            _taskTableView.Hidden = ViewModel.IsNoTasks;
+            _emptyView.Hidden = !ViewModel.IsNoTasks;
         }
 
         private void Binding()

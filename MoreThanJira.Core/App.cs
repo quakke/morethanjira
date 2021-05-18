@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Acr.UserDialogs;
 using MoreThanJira.Core.ViewModels;
 using MvvmCross.Core.ViewModels;
+using MvvmCross.Platform;
 
 namespace MoreThanJira.Core
 {
@@ -11,6 +12,8 @@ namespace MoreThanJira.Core
             new Api.App().Initialize();
 
             RegisterNavigationServiceAppStart<MainViewModel>();
+
+            Mvx.RegisterSingleton(() => UserDialogs.Instance);
         }
     }
 }

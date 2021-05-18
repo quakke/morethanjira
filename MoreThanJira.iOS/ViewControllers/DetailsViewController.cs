@@ -3,6 +3,7 @@ using MoreThanJira.Api.Models;
 using MoreThanJira.Core.ViewModels;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.iOS.Views;
+using UIKit;
 
 namespace MoreThanJira.iOS.ViewControllers
 {
@@ -18,6 +19,9 @@ namespace MoreThanJira.iOS.ViewControllers
             base.ViewDidLoad();
 
             Binding();
+
+            _descriptionTextView.Layer.BorderColor = UIColor.LightGray.CGColor;
+            _descriptionTextView.Layer.BorderWidth = 1;
         }
 
         private void Binding()
@@ -26,7 +30,8 @@ namespace MoreThanJira.iOS.ViewControllers
 
             set.Bind(_titleTextField).For("Text").To(vm => vm.Title);
             set.Bind(_descriptionTextView).For("Text").To(vm => vm.Description);
-            //set.Bind(_creationDateLabel).For("Text").To(vm => vm.TaskItem.CreationDateTime.ToString());
+            set.Bind(_creationDateLabel).For("Text").To(vm => vm.CreatedDate);
+
             //TODO: сделать статус
 
             set.Bind(_saveButton).To(vm => vm.SaveTaskCommand);

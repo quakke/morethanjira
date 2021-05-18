@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Acr.UserDialogs;
 using MoreThanJira.Api.Repositories;
 using MoreThanJira.Core.ViewModels.Items;
 using MvvmCross.Core.Navigation;
 using MvvmCross.Core.ViewModels;
+using MvvmCross.Platform;
 
 namespace MoreThanJira.Core.ViewModels
 {
@@ -13,6 +14,8 @@ namespace MoreThanJira.Core.ViewModels
     {
         private ITaskRepository _taskRepository;
         private IMvxNavigationService _navigationService;
+
+        public bool IsNoTasks => (Tasks == null || Tasks.Count == 0);
 
         private List<ItemViewModel> _tasks;
         public List<ItemViewModel> Tasks
@@ -26,6 +29,8 @@ namespace MoreThanJira.Core.ViewModels
                 SetProperty(ref _tasks, value);
             }
         }
+
+        #region Commands
 
         private IMvxAsyncCommand _refreshCommand;
         public IMvxAsyncCommand RefreshCommand
@@ -63,40 +68,22 @@ namespace MoreThanJira.Core.ViewModels
             }
         }
 
+        #endregion
+
         public MainViewModel(ITaskRepository taskRepository, IMvxNavigationService navigationService)
         {
             _taskRepository = taskRepository;
             _navigationService = navigationService;
         }
 
-        public override void ViewAppeared()
+        public override void ViewAppearing()
         {
-            base.ViewAppeared();
+            UpdateTasks();
 
-            _ = UpdateTasks();
+            base.ViewAppearing();
         }
 
-        private async Task UpdateTasks()
-        {
-            Tasks = new List<ItemViewModel>();
-            try
-            {
-                var tasks = await _taskRepository.GetTasksAsync();
-                if (tasks != null)
-                {
-                    var tasksModel = tasks.Select(task => new ItemViewModel(task)).ToList();
-                    Tasks = new List<ItemViewModel>(tasksModel);
-                }
-                else
-                {
-                    // TODO сообщ "Нет данных для отображения"
-                }
-            }
-            catch (Exception ex)
-            {
-                // TODO: сообщ "Че-то упало ", ex
-            }
-        }
+        #region CommandsActions
 
         private void OnItemClick(ItemViewModel itemVM)
         {
@@ -108,6 +95,24 @@ namespace MoreThanJira.Core.ViewModels
             _navigationService.Navigate<DetailsViewModel>();
         }
 
+        private void UpdateTasks()
+        {
+            Tasks = new List<ItemViewModel>();
+            try
+            {
+                var tasks = _taskRepository.GetTasksAsync().Result;
+                if (tasks != null)
+                {
+                    var tasksModel = tasks.Select(task => new ItemViewModel(task)).ToList();
+                    Tasks = new List<ItemViewModel>(tasksModel);
+                }
+            }
+            catch (Exception ex)
+            {
+                Mvx.Resolve<IUserDialogs>().Alert("Что-то пошло не так, попробуйте позже");
+            }
+        }
+
         private void OnDeleteItemClick(ItemViewModel itemVM)
         {
             try
@@ -116,18 +121,20 @@ namespace MoreThanJira.Core.ViewModels
 
                 if (result == 1)
                 {
-                    // TODO сообщ "Все ок"
-                    _ = UpdateTasks();
+                    Mvx.Resolve<IUserDialogs>().Alert("Удалили успешно");
+                    UpdateTasks();
                 }
                 else
                 {
-                    // TODO сообщ "Че-то не ок"
+                    Mvx.Resolve<IUserDialogs>().Alert("Не удалилось, но не упало");
                 }
             }
             catch (Exception ex)
             {
-                // TODO: сообщ "Че-то упало: ", ex
+                Mvx.Resolve<IUserDialogs>().Alert("Что-то пошло не так, попробуйте позже");
             }
         }
+
+        #endregion
     }
 }

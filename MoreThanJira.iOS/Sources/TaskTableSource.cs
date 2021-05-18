@@ -18,7 +18,7 @@ namespace MoreThanJira.iOS.Sources
         {
             _viewModel = viewModel;
 
-            tableView.SeparatorStyle = UITableViewCellSeparatorStyle.SingleLine;
+            tableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
             tableView.RegisterNibForCellReuse(UINib.FromName("TaskTableViewCell", NSBundle.MainBundle), TaskCellIdentifier);
         }
 

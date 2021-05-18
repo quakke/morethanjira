@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Acr.UserDialogs;
 using MoreThanJira.Api.Repositories;
 using MoreThanJira.Core.ViewModels.Items;
 using MvvmCross.Core.ViewModels;
+using MvvmCross.Platform;
 
 namespace MoreThanJira.Core.ViewModels
 {
     public class DetailsViewModel : MvxViewModel<ItemViewModel>
     {
         private ITaskRepository _taskRepository;
+
+        #region Properties
 
         private ItemViewModel _taskItem;
         public ItemViewModel TaskItem
@@ -64,6 +68,8 @@ namespace MoreThanJira.Core.ViewModels
 
         // TODO: сделать статус
 
+        #endregion
+
         private IMvxAsyncCommand _saveTaskCommand;
         public IMvxAsyncCommand SaveTaskCommand
         {
@@ -89,7 +95,6 @@ namespace MoreThanJira.Core.ViewModels
                 _title = TaskItem.TaskEntity.Title;
                 _description = TaskItem.TaskEntity.Description;
                 _createdDate = TaskItem.TaskEntity.CreationDate.ToString();
-                
                 // TODO: сделать статус
             }
         }
@@ -105,15 +110,22 @@ namespace MoreThanJira.Core.ViewModels
                 // TODO: сделать статус
             };
 
-            var result = await _taskRepository.SaveTaskAsync(newTaskEntity);
+            try
+            {
+                var result = await _taskRepository.SaveTaskAsync(newTaskEntity);
 
-            if (result == 1)
-            {
-                // TODO сообщение "данные добавлены"
+                if (result == 1)
+                {
+                    Mvx.Resolve<IUserDialogs>().Alert("Данные обновлены");
+                }
+                else
+                {
+                    Mvx.Resolve<IUserDialogs>().Alert("Данные не обновлены, но ничего не упало");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                // TODO: сообщение об ошибке
+                Mvx.Resolve<IUserDialogs>().Alert("Что-то пошло не так, попробуйте позже");
             }
         }
     }
