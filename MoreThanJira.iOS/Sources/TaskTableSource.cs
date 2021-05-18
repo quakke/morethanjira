@@ -12,7 +12,7 @@ namespace MoreThanJira.iOS.Sources
     {
         private static readonly NSString TaskCellIdentifier = new NSString("TaskTableViewCell");
 
-        private MainViewModel _viewModel;
+        private readonly MainViewModel _viewModel;
 
         public TaskTableSource(MainViewModel viewModel, UITableView tableView) : base(tableView)
         {

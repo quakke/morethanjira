@@ -10,6 +10,5 @@ namespace MoreThanJira.Api
         {
             Mvx.ConstructAndRegisterSingleton<ITaskRepository, TaskRepository>();
         }
-
     }
 }

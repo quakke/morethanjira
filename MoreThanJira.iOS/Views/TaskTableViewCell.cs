@@ -20,9 +20,7 @@ namespace MoreThanJira.iOS.Views
 
         protected TaskTableViewCell(IntPtr handle) : base(handle)
         {
-            this.DelayBind(() => {
-                BindControls();
-            });
+            this.DelayBind(BindControls);
         }
 
         private void BindControls()

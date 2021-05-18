@@ -12,34 +12,19 @@ namespace MoreThanJira.Core.ViewModels
 {
     public class MainViewModel : MvxViewModel
     {
-        private ITaskRepository _taskRepository;
-        private IMvxNavigationService _navigationService;
+        private readonly ITaskRepository _taskRepository;
+        private readonly IMvxNavigationService _navigationService;
 
         public bool IsNoTasks => (Tasks == null || Tasks.Count == 0);
 
         private List<ItemViewModel> _tasks;
         public List<ItemViewModel> Tasks
         {
-            get
-            {
-                return _tasks;
-            }
-            private set
-            {
-                SetProperty(ref _tasks, value);
-            }
+            get => _tasks;
+            private set => SetProperty(ref _tasks, value);
         }
 
         #region Commands
-
-        private IMvxAsyncCommand _refreshCommand;
-        public IMvxAsyncCommand RefreshCommand
-        {
-            get
-            {
-                return _refreshCommand ?? (_refreshCommand = new MvxAsyncCommand(Initialize));
-            }
-        }
 
         private IMvxCommand _selectTaskCommand;
         public IMvxCommand SelectTaskCommand
@@ -85,9 +70,9 @@ namespace MoreThanJira.Core.ViewModels
 
         #region CommandsActions
 
-        private void OnItemClick(ItemViewModel itemVM)
+        private void OnItemClick(ItemViewModel itemVm)
         {
-            _navigationService.Navigate<DetailsViewModel, ItemViewModel>(itemVM);
+            _navigationService.Navigate<DetailsViewModel, ItemViewModel>(itemVm);
         }
 
         private void OnAddItemClick()
@@ -113,11 +98,11 @@ namespace MoreThanJira.Core.ViewModels
             }
         }
 
-        private void OnDeleteItemClick(ItemViewModel itemVM)
+        private void OnDeleteItemClick(ItemViewModel itemVm)
         {
             try
             {
-                var result = _taskRepository.DeleteTaskAsync(itemVM.TaskEntity).Result;
+                var result = _taskRepository.DeleteTaskAsync(itemVm.TaskEntity).Result;
 
                 if (result == 1)
                 {

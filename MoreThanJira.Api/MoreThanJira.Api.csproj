@@ -31,7 +31,6 @@
     <Compile Include="Models\TaskEntity.cs" />
     <Compile Include="Repositories\TaskRepository.cs" />
     <Compile Include="App.cs" />
-    <Compile Include="Utils\AsyncLazy.cs" />
     <Compile Include="Utils\Constants.cs" />
     <Compile Include="Repositories\ITaskRepository.cs" />
   </ItemGroup>

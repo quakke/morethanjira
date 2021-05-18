@@ -39,6 +39,7 @@ namespace MoreThanJira.iOS.ViewControllers
 
             set.Bind(tableSource).To(vm => vm.Tasks);
             set.Bind(tableSource).For(ds => ds.SelectionChangedCommand).To(vm => vm.SelectTaskCommand);
+            
             _taskTableView.Source = tableSource;
             _taskTableView.ReloadData();
 
