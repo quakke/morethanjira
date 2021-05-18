@@ -1,5 +1,6 @@
 ﻿using Foundation;
 using MoreThanJira.Core.ViewModels;
+using MoreThanJira.iOS.Sources;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Binding.iOS.Views;
 using MvvmCross.iOS.Views;
@@ -22,36 +23,25 @@ namespace MoreThanJira.iOS.ViewControllers
             Binding();
         }
 
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+        }
+
         private void Binding()
         {
             var set = this.CreateBindingSet<MainViewController, MainViewModel>();
 
-            var source = new TaskTableSource(_taskTableView);
-            set.Bind(source).To(vm => vm.Tasks);
-            set.Bind(source).For(ds => ds.SelectionChangedCommand).To(vm => vm.SelectTaskCommand);
-            _taskTableView.Source = source;
+            var tableSource = new TaskTableSource(ViewModel, _taskTableView);
+
+            set.Bind(tableSource).To(vm => vm.Tasks);
+            set.Bind(tableSource).For(ds => ds.SelectionChangedCommand).To(vm => vm.SelectTaskCommand);
+            _taskTableView.Source = tableSource;
             _taskTableView.ReloadData();
 
             set.Bind(_addButton).To(vm => vm.AddTaskCommand);
             
             set.Apply();
-        }
-    }
-
-    // TODO: вынести в отдельный файл
-    public class TaskTableSource : MvxTableViewSource
-    {
-        private static readonly NSString TaskCellIdentifier = new NSString("TaskTableViewCell");
-
-        public TaskTableSource(UITableView tableView) : base(tableView)
-        {
-            tableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
-            tableView.RegisterNibForCellReuse(UINib.FromName("TaskTableViewCell", NSBundle.MainBundle), TaskCellIdentifier);
-        }
-
-        protected override UITableViewCell GetOrCreateCellFor(UITableView tableView, NSIndexPath indexPath, object item)
-        {
-            return TableView.DequeueReusableCell(TaskCellIdentifier, indexPath);
         }
     }
 }

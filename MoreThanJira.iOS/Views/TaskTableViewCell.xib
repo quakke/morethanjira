@@ -33,8 +33,12 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="44" id="sUO-hq-PTy"/>
+                        </constraints>
                     </stackView>
                 </subviews>
+                <viewLayoutGuide key="safeArea" id="eXA-5U-Puv"/>
                 <constraints>
                     <constraint firstItem="Nls-3K-rc9" firstAttribute="top" secondItem="YTl-1W-gDM" secondAttribute="top" id="5Ut-Gh-hyU"/>
                     <constraint firstAttribute="bottom" secondItem="Nls-3K-rc9" secondAttribute="bottom" id="H9b-hK-si4"/>
@@ -43,6 +47,10 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="nZG-nU-iG4"/>
+            <connections>
+                <outlet property="_idLabel" destination="Eye-tu-I46" id="b9I-vV-TVK"/>
+                <outlet property="_titleLabel" destination="Sev-nq-E1n" id="59B-WE-J8z"/>
+            </connections>
             <point key="canvasLocation" x="86" y="0.0"/>
         </tableViewCell>
     </objects>

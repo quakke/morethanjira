@@ -27,6 +27,15 @@ namespace MoreThanJira.Core.ViewModels
             }
         }
 
+        private IMvxAsyncCommand _refreshCommand;
+        public IMvxAsyncCommand RefreshCommand
+        {
+            get
+            {
+                return _refreshCommand ?? (_refreshCommand = new MvxAsyncCommand(Initialize));
+            }
+        }
+
         private IMvxCommand _selectTaskCommand;
         public IMvxCommand SelectTaskCommand
         {
@@ -45,13 +54,29 @@ namespace MoreThanJira.Core.ViewModels
             }
         }
 
+        private IMvxCommand _deleteTaskCommand;
+        public IMvxCommand DeleteTaskCommand
+        {
+            get
+            {
+                return _deleteTaskCommand ?? (_deleteTaskCommand = new MvxCommand<ItemViewModel>(OnDeleteItemClick));
+            }
+        }
+
         public MainViewModel(ITaskRepository taskRepository, IMvxNavigationService navigationService)
         {
             _taskRepository = taskRepository;
             _navigationService = navigationService;
         }
 
-        public override async Task Initialize()
+        public override void ViewAppeared()
+        {
+            base.ViewAppeared();
+
+            _ = UpdateTasks();
+        }
+
+        private async Task UpdateTasks()
         {
             Tasks = new List<ItemViewModel>();
             try
@@ -64,13 +89,12 @@ namespace MoreThanJira.Core.ViewModels
                 }
                 else
                 {
-                    //Acr.UserDialogs.UserDialogs.Instance.Alert("Нет данных для отображения");
+                    // TODO сообщ "Нет данных для отображения"
                 }
             }
             catch (Exception ex)
             {
-                //_logger.WarnException("Fail load artists: ", ex);
-                //Acr.UserDialogs.UserDialogs.Instance.Alert("Проблемы при загрузке данных");
+                // TODO: сообщ "Че-то упало ", ex
             }
         }
 
@@ -82,6 +106,28 @@ namespace MoreThanJira.Core.ViewModels
         private void OnAddItemClick()
         {
             _navigationService.Navigate<DetailsViewModel>();
+        }
+
+        private void OnDeleteItemClick(ItemViewModel itemVM)
+        {
+            try
+            {
+                var result = _taskRepository.DeleteTaskAsync(itemVM.TaskEntity).Result;
+
+                if (result == 1)
+                {
+                    // TODO сообщ "Все ок"
+                    _ = UpdateTasks();
+                }
+                else
+                {
+                    // TODO сообщ "Че-то не ок"
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: сообщ "Че-то упало: ", ex
+            }
         }
     }
 }

@@ -13,8 +13,8 @@ namespace MoreThanJira.Api.Repositories
         public TaskRepository()
         {
             _database = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
+            _database.CreateTableAsync<TaskEntity>();
         }
-
 
         public Task<List<TaskEntity>> GetTasksAsync()
         {

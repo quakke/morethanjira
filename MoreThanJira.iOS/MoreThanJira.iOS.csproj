@@ -122,6 +122,7 @@
         <Folder Include="Resources\" />
         <Folder Include="ViewControllers\" />
         <Folder Include="Views\" />
+        <Folder Include="Sources\" />
     </ItemGroup>
     <ItemGroup>
         <InterfaceDefinition Include="ViewControllers\DetailsViewController.xib" />
@@ -148,6 +149,7 @@
           <DependentUpon>TaskTableViewCell.cs</DependentUpon>
         </Compile>
         <Compile Include="Setup.cs" />
+        <Compile Include="Sources\TaskTableSource.cs" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\MoreThanJira.Api\MoreThanJira.Api.csproj">

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using MoreThanJira.Api.Repositories;
 using MoreThanJira.Core.ViewModels.Items;
 using MvvmCross.Core.ViewModels;
@@ -48,14 +49,27 @@ namespace MoreThanJira.Core.ViewModels
             }
         }
 
-        // TODO: сделать статус
-
-        private IMvxCommand _saveTaskCommand;
-        public IMvxCommand SaveTaskCommand
+        private string _createdDate;
+        public string CreatedDate
         {
             get
             {
-                return _saveTaskCommand ?? (_saveTaskCommand = new MvxCommand(OnSaveButtonClicked));
+                return _createdDate;
+            }
+            private set
+            {
+                SetProperty(ref _createdDate, value);
+            }
+        }
+
+        // TODO: сделать статус
+
+        private IMvxAsyncCommand _saveTaskCommand;
+        public IMvxAsyncCommand SaveTaskCommand
+        {
+            get
+            {
+                return _saveTaskCommand ?? (_saveTaskCommand = new MvxAsyncCommand(OnSaveButtonClicked));
             }
         }
 
@@ -72,14 +86,15 @@ namespace MoreThanJira.Core.ViewModels
 
             if (TaskItem != null)
             {
-                _title = TaskItem.Title;
-                _description = TaskItem.Description;
-                // TODO: сделать дату
+                _title = TaskItem.TaskEntity.Title;
+                _description = TaskItem.TaskEntity.Description;
+                _createdDate = TaskItem.TaskEntity.CreationDate.ToString();
+                
                 // TODO: сделать статус
             }
         }
 
-        private void OnSaveButtonClicked()
+        private async Task OnSaveButtonClicked()
         { 
             var newTaskEntity = new Api.Models.TaskEntity()
             {
@@ -90,7 +105,16 @@ namespace MoreThanJira.Core.ViewModels
                 // TODO: сделать статус
             };
 
-            _taskRepository.SaveTaskAsync(newTaskEntity);
+            var result = await _taskRepository.SaveTaskAsync(newTaskEntity);
+
+            if (result == 1)
+            {
+                // TODO сообщение "данные добавлены"
+            }
+            else
+            {
+                // TODO: сообщение об ошибке
+            }
         }
     }
 }
